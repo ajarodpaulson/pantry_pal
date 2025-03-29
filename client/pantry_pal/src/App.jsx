@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import Hello from './components/Hello'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CuisineSelectionPage from './components/CuisineSelectionPage';
+import TimeSelectionPage from './components/TimeSelectionPage'; // placeholder
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    <Hello/>
-    </>
-
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<CuisineSelectionPage />} />
+        <Route path="/time" element={<TimeSelectionPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
