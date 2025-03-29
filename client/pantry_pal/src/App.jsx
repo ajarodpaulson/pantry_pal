@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CuisineSelectionPage from './components/CuisineSelectionPage';
-import TimeSelectionPage from './components/TimeSelectionPage'; // placeholder
+import TimeSelectionPage from './components/TimeSelectionPage';
+
 
 function App() {
   return (

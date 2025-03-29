@@ -16,8 +16,6 @@ function CuisineSelectionPage() {
     } else {
       setIsOther(false);
       setSelectedCuisine(cuisine);
-      // Optionally navigate immediately or wait for user to confirm
-      // navigateToNextPage(cuisine);
     }
   };
 

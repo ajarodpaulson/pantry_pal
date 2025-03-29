@@ -8,13 +8,14 @@
   min-height: 100vh;
 
   /* background for first page*/
-  background: url('../assets/healthy_food_background.jpg') no-repeat center center/cover;
+  background: url('../assets/healthy_kitchen.webp') no-repeat center center/cover;
 
   background-size: cover;
 
 
   /* Make text stand out on the background */
-  color: #000;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   font-family: sans-serif;
   padding: 1rem;
   text-align: center; /* to center text if needed */
