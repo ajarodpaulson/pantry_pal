@@ -1,6 +1,8 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv';
+import express from 'express';
+import mongoose from 'mongoose';
+
+dotenv.config(); // Load environment variables
 
 const app = express();
 app.use(express.json());
@@ -10,19 +12,22 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 // Connect to MongoDB Atlas
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true
 })
 .then(() => console.log('✅ Connected to MongoDB Atlas'))
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Optional: create a sample model
-const User = require('./models/User');
+// Import Ingredient Route
+import IngredientRoute from './routes/IngredientRoute.js';  // Change require to import
+app.use('/api/ingredients', IngredientRoute);
 
+// Root route
 app.get('/', (req, res) => {
   res.send('Hello from Atlas setup!');
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
