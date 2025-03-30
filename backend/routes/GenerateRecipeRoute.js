@@ -10,7 +10,7 @@ const groqClient = new groq.Groq({
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  let { ingredients, time, cuisine } = req.body;
+  let { ingredients, time, cuisineType } = req.body;
 
   let prompt;
 
@@ -19,19 +19,19 @@ router.post('/', async (req, res) => {
     const ingredientNames = allIngredients.map(ing => ing.name);
     const randomSelection = ingredientNames.sort(() => 0.5 - Math.random()).slice(0, 5); 
     console.log(allIngredients);
-    prompt = `Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisine} and ${time} in minutes provided.`;  
+    prompt = `Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisineType} and ${time} in minutes provided.`;
   } else {
     prompt = `Follow the prompts carefully. Your output should be a parsable JSON like string. It should be formatted
     with Title, Recipe Information, Ingredients, and Instructions. Do not add any formating elements like line break. I should be able to 
     parse Header: body, next header: next body, and so forth. You need to follow the regional cuisine strictly. The recipes you recommend should only be from
-    this culinary region. Here is what you need to do with the rules I outlined: healthy ${cuisine} recipe you can make in ${time} minutes using: 
+    this culinary region. Here is what you need to do with the rules I outlined: healthy ${cuisineType} recipe you can make in ${time} minutes using:
     ${ingredients.join(', ')}.\n\n`;    
   }
 
   // Eventually you'll use these in a prompt
   console.log('Ingredients:', ingredients); // array of strings
   console.log('Time:', time);               // number (minutes)
-  console.log('Cuisine:', cuisine);         // string
+  console.log('Cuisine:', cuisineType);         // string
 
   try {
     // Send the prompt to Groq and get a response
