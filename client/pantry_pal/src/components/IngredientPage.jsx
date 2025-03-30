@@ -10,6 +10,9 @@ const IngredientPage = () => {
 
   // for adding and deleting ingredients
   const [ingredientName, setIngredientName] = useState('');
+  const [ingredientQuantity, setIngredientQuantity] = useState('');
+  const [ingredientUnit, setIngredientUnit] = useState('');
+
   // Simulated fetch effect (replace with your backend fetch later)
   useEffect(() => {
     fetch('http://localhost:3000/api/ingredients')
@@ -23,7 +26,12 @@ const IngredientPage = () => {
     const handleAddIngredient = () => {
       if (!ingredientName.trim()) return; // ignore empty input
 
-      const newIngredient = { name: ingredientName, quantity: 0 };
+      const newIngredient = {
+            name: ingredientName.trim(),
+            quantity: parseFloat(ingredientQuantity) || 0,
+            unit: ingredientUnit.trim() || "kg"
+          };
+
       fetch('http://localhost:3000/api/ingredients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -43,7 +51,9 @@ const IngredientPage = () => {
         .then((res) => res.json())
         .then((updated) => {
           setIngredients(updated);
-          setIngredientName(''); // clear the input
+          setIngredientName('');
+          setIngredientQuantity('');
+          setIngredientUnit('');
         })
         .catch((error) => console.error('Error adding ingredient:', error));
     };
@@ -72,7 +82,9 @@ const IngredientPage = () => {
         .then((res) => res.json())
         .then((updated) => {
           setIngredients(updated);
-          setIngredientName(''); // clear the input
+          setIngredientName('');
+          setIngredientQuantity('');
+          setIngredientUnit('');
         })
         .catch((error) => console.error('Error deleting ingredient:', error));
     };
@@ -80,15 +92,13 @@ const IngredientPage = () => {
   const handleUpdateQuantity = (id, changeAmount) => {
     setIngredients((prevIngredients) =>
       prevIngredients.map((ingredient) => {
-          const newQuantity = ingredient.quantity || 0;
-        if (newQuantity + changeAmount < 0) {
-            return ingredient._id === id
-              ? { ...ingredient, quantity: 0}
-              : ingredient
-            }
-        return ingredient._id === id
-          ? { ...ingredient, quantity: newQuantity + changeAmount }
-          : ingredient
+          if (ingredient._id === id) {
+              const currentQuantity = ingredient.quantity || 0;
+              let newQuantity = currentQuantity + changeAmount;
+              if (newQuantity < 0) newQuantity = 0;
+              return { ...ingredient, quantity: newQuantity };
+          }
+      return ingredient;
       })
     );
   };
@@ -105,6 +115,7 @@ const IngredientPage = () => {
       if (!isNaN(amount)) {
         onUpdateQuantity(ingredient._id, amount);
         setInputValue('');
+
       }
 
     };
@@ -120,7 +131,9 @@ const IngredientPage = () => {
     return (
       <li className="ingredient-item">
         <span className="ingredient-name">{ingredient.name}</span>
-        <span className="ingredient-quantity">Quantity: {ingredient.quantity || 0}</span>
+        <span className="ingredient-quantity">
+          Quantity: {ingredient.quantity || 0} {ingredient.unit}
+        </span>
         <input
           type="number"
           className="ingredient-input"
@@ -133,15 +146,17 @@ const IngredientPage = () => {
       </li>
     );
   };
+
   return (
     <div className="ingredient-page">
-
+      {/* Return button at top right */}
       <button className="return-button" onClick={handleReturn}>
-              Return
+        Return
       </button>
 
       <h1>Ingredients</h1>
 
+      {/* Controls for adding/deleting an ingredient */}
       <div className="ingredient-controls">
         <input
           type="text"
@@ -150,21 +165,40 @@ const IngredientPage = () => {
           value={ingredientName}
           onChange={(e) => setIngredientName(e.target.value)}
         />
-        <button className = "add-ingredient-button" onClick={handleAddIngredient}>Add Ingredient</button>
-        <button className = "delete-ingredient-button" onClick={handleDeleteIngredient}>Delete Ingredient</button>
+        {/* New text boxes for quantity and unit */}
+        <input
+          type="number"
+          className="ingredient-quantity-input"
+          placeholder="Quantity"
+          value={ingredientQuantity}
+          onChange={(e) => setIngredientQuantity(e.target.value)}
+        />
+        <input
+          type="text"
+          className="ingredient-unit-input"
+          placeholder="Unit (e.g., g, cups)"
+          value={ingredientUnit}
+          onChange={(e) => setIngredientUnit(e.target.value)}
+        />
+        <button className="add-ingredient-button" onClick={handleAddIngredient}>
+          Add Ingredient
+        </button>
+        <button className="delete-ingredient-button" onClick={handleDeleteIngredient}>
+          Delete Ingredient
+        </button>
       </div>
 
       <ul className="ingredient-list">
-        {ingredients.map((ingredient) => (
-          <IngredientItem
-            key={ingredient._id}
-            ingredient={ingredient}
-            onUpdateQuantity={handleUpdateQuantity}
-          />
-        ))}
-      </ul>
-    </div>
-  );
-};
+            {ingredients.map((ingredient) => (
+              <IngredientItem
+                key={ingredient._id}
+                ingredient={ingredient}
+                onUpdateQuantity={handleUpdateQuantity}
+              />
+            ))}
+        </ul>
+      </div>
+      );
+    };
 
 export default IngredientPage;

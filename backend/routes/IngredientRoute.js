@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
   });
 
 router.post("/", async (req, res) => {
-  const { name, quantity } = req.body;
+  const { name, quantity, unit } = req.body;
   try {
     // Normalize the ingredient name (e.g., trim spaces and lowercase) for consistency
     const normalizedName = name.trim().toLowerCase();
@@ -34,6 +34,7 @@ router.post("/", async (req, res) => {
     const newIngredient = new Ingredient({
       name: normalizedName,
       quantity: quantity || 0,
+      unit: unit || "kg"
     });
     await newIngredient.save();
 
