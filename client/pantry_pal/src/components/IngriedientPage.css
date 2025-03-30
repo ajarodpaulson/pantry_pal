@@ -1,0 +1,56 @@
+/* IngriedientPage.css */
+.ingredient-page {
+    display: flex;
+    flex-direction: column;   /* Stack children vertically */
+    align-items: center;      /* Horizontally center children */
+    justify-content: top;  /* Vertically center children */
+    text-align: center;       /* Center text within children */
+    background-image: url('../assets/bgTable.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;        /* Full viewport height */
+    padding: 1rem;
+  }
+  
+  /* Other existing styles... */
+  .ingredient-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .ingredient-item {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .ingredient-name {
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  
+  .ingredient-quantity {
+    margin-right: 1rem;
+  }
+  
+  .ingredient-input {
+    margin-right: 0.5rem;
+    width: 80px;
+  }
+  
+  .add-button,
+  .remove-button {
+    margin-right: 1.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    background-color: #d1e7dd;
+  }
+  
+  .remove-button:hover {
+    background-color: #f8d7da;
+  }
+  

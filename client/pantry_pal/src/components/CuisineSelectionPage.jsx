@@ -36,6 +36,7 @@ function CuisineSelectionPage() {
     <div className="cuisine-container">
       <h1 className="title">What type of cuisine do you want to cook today?</h1>
 
+
       <div className="cuisine-grid">
         <button
           className={`cuisine-btn ${selectedCuisine === 'Japanese' ? 'active' : ''}`}
