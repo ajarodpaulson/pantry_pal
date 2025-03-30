@@ -21,7 +21,10 @@ router.post('/', async (req, res) => {
     console.log(allIngredients);
     prompt = `Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisine} and ${time} in minutes provided.`;  
   } else {
-    prompt = `Give back a healthy ${cuisine} recipe you can make in ${time} minutes using: 
+    prompt = `Follow the prompts carefully. Your output should be a parsable JSON like string. It should be formatted
+    with Title, Recipe Information, Ingredients, and Instructions. Do not add any formating elements like line break. I should be able to 
+    parse Header: body, next header: next body, and so forth. You need to follow the regional cuisine strictly. The recipes you recommend should only be from
+    this culinary region. Here is what you need to do with the rules I outlined: healthy ${cuisine} recipe you can make in ${time} minutes using: 
     ${ingredients.join(', ')}.\n\n`;    
   }
 

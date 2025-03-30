@@ -2,51 +2,76 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './ResultPage.css';
 
-// Updated parseRecipe function using regex
 function parseRecipe(rawString) {
-  // 1. Extract the title: assume the first markdown bold text is the title.
-  const titleMatch = rawString.match(/\*\*(.*?)\*\*/);
-  const title = titleMatch ? titleMatch[1].trim() : "Untitled Recipe";
+  // Define header keys
+  const titleKey = "Title:";
+  const recipeInfoKey = "Recipe Information:";
+  const ingredientsKey = "Ingredients:";
+  const instructionsKey = "Instructions:";
 
-  // 2. Extract Ingredients:
-  // This regex finds the section after "Ingredients:" that contains one or more lines starting with a dash.
-  const ingredientsRegex = /Ingredients:\s*((?:- .+\n?)+)/i;
-  let ingredients = [];
-  const ingredientsMatch = rawString.match(ingredientsRegex);
-  if (ingredientsMatch) {
-    ingredients = ingredientsMatch[1]
-      .split('\n')
-      .map(line => line.replace(/^- /, '').trim())
-      .filter(Boolean);
+  // Find indices of headers
+  const titleIndex = rawString.indexOf(titleKey);
+  const recipeInfoIndex = rawString.indexOf(recipeInfoKey);
+  const ingredientsIndex = rawString.indexOf(ingredientsKey);
+  const instructionsIndex = rawString.indexOf(instructionsKey);
+
+  // If any header is missing, log error and return null.
+  if (
+    titleIndex === -1 ||
+    recipeInfoIndex === -1 ||
+    ingredientsIndex === -1 ||
+    instructionsIndex === -1
+  ) {
+    console.error("Missing one or more required keys in the raw string.");
+    return null;
   }
 
-  // 3. Extract Instructions:
-  // This regex finds the section after "Instructions:" that contains one or more numbered steps.
-  const instructionsRegex = /Instructions:\s*((?:\d+\..+\n?)+)/i;
-  let instructions = [];
-  const instructionsMatch = rawString.match(instructionsRegex);
-  if (instructionsMatch) {
-    instructions = instructionsMatch[1]
-      .split('\n')
-      .map(line => line.replace(/^\d+\.\s*/, '').trim())
-      .filter(Boolean);
+  // Extract text for each section using substring and trim any trailing commas.
+  const title = rawString
+    .substring(titleIndex + titleKey.length, recipeInfoIndex)
+    .trim()
+    .replace(/,$/, '');
+
+  const recipeInfo = rawString
+    .substring(recipeInfoIndex + recipeInfoKey.length, ingredientsIndex)
+    .trim()
+    .replace(/,$/, '');
+
+  const ingredientsStr = rawString
+    .substring(ingredientsIndex + ingredientsKey.length, instructionsIndex)
+    .trim()
+    .replace(/,$/, '');
+
+  const instructionsStr = rawString
+    .substring(instructionsIndex + instructionsKey.length)
+    .trim()
+    .replace(/,$/, '');
+
+  // Try to split ingredients into an array.
+  // If the ingredients string contains commas, assume they are delimiters.
+  let ingredients;
+  if (ingredientsStr.includes(',')) {
+    ingredients = ingredientsStr.split(',').map(ing => ing.trim()).filter(Boolean);
+  } else {
+    // Otherwise, if ingredients are space-separated, split on two or more spaces.
+    ingredients = ingredientsStr.split(/\s{2,}/).map(ing => ing.trim()).filter(Boolean);
+    if (ingredients.length === 0) ingredients = [ingredientsStr];
   }
 
-  // 4. Extract Recipe Information:
-  const recipeInfo = {};
-  const prepTimeMatch = rawString.match(/Prep Time:\s*(.+)/i);
-  if (prepTimeMatch) recipeInfo.prepTime = prepTimeMatch[1].trim();
-  const cookTimeMatch = rawString.match(/Cook Time:\s*(.+)/i);
-  if (cookTimeMatch) recipeInfo.cookTime = cookTimeMatch[1].trim();
-  const totalTimeMatch = rawString.match(/Total Time:\s*(.+)/i);
-  if (totalTimeMatch) recipeInfo.totalTime = totalTimeMatch[1].trim();
+  // Similarly, for instructions, try to split on periods.
+  let instructions;
+  if (instructionsStr.includes('.')) {
+    instructions = instructionsStr.split('.').map(instr => instr.trim()).filter(Boolean);
+  } else {
+    instructions = [instructionsStr];
+  }
 
   return { title, recipeInfo, ingredients, instructions };
 }
 
 const ResultPage = () => {
   const location = useLocation();
-  // Expect the raw recipe string in the "data" property if recipeData is an object.
+  // Expect the raw recipe string from state; if recipeData is an object, use its "data" property.
   const recipeData = location.state?.recipe;
   const rawString = typeof recipeData === 'object' ? recipeData.data : recipeData;
 
@@ -69,11 +94,7 @@ const ResultPage = () => {
       
       <section className="recipe-info">
         <h2>Recipe Information</h2>
-        <ul>
-          {parsedRecipe.recipeInfo.prepTime && <li>Prep Time: {parsedRecipe.recipeInfo.prepTime}</li>}
-          {parsedRecipe.recipeInfo.cookTime && <li>Cook Time: {parsedRecipe.recipeInfo.cookTime}</li>}
-          {parsedRecipe.recipeInfo.totalTime && <li>Total Time: {parsedRecipe.recipeInfo.totalTime}</li>}
-        </ul>
+        <p>{parsedRecipe.recipeInfo}</p>
       </section>
 
       <section className="recipe-ingredients">
