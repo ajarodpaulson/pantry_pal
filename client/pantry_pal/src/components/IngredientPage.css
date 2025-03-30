@@ -39,7 +39,7 @@
   .ingredient-item {
     display: grid;
     /* 5 columns: name, quantity, input, add button, remove button */
-    grid-template-columns: 120px 200px 80px 120px 120px;
+    grid-template-columns: 220px 200px 80px 120px 120px;
     gap: 1rem;              /* space between columns */
     align-items: center;    /* vertically center content in each cell */
     margin: 1rem 0;
