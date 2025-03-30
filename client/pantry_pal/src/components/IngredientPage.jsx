@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './IngriedientPage.css'; // Import external CSS
+import './IngredientPage.css'; // Import external CSS
 
 const IngredientPage = () => {
   // Placeholder ingredients
@@ -13,14 +13,11 @@ const IngredientPage = () => {
 
   // Simulated fetch effect (replace with your backend fetch later)
   useEffect(() => {
-    // For now, we're using placeholder data
-    // When ready, uncomment and update the following:
-    /*
-    fetch('http://localhost:5000/api/ingredients')
+    fetch('http://localhost:3000/api/ingredients')
       .then((response) => response.json())
       .then((data) => setIngredients(data))
       .catch((error) => console.error('Error fetching ingredients:', error));
-    */
+
   }, []);
 
   // Update an ingredient's quantity (positive for add, negative for remove)

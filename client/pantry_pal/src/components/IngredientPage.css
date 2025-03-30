@@ -1,11 +1,10 @@
-/* IngriedientPage.css */
 .ingredient-page {
     display: flex;
     flex-direction: column;   /* Stack children vertically */
     align-items: center;      /* Horizontally center children */
     justify-content: top;  /* Vertically center children */
     text-align: center;       /* Center text within children */
-    background-image: url('../assets/bgTable.jpg');
+    background-image: url('../assets/healthy_kitchen.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

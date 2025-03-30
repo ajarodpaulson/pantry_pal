@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CuisineSelectionPage.css';
+import InventoryButton from './InventoryButton';
 
 function CuisineSelectionPage() {
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ function CuisineSelectionPage() {
     }
   };
 
+  const handleInventoryClick = () => {
+    navigate('/inventory'); // adjust the route as needed
+  };
+
+
   // checks to see if next button should be active
   const isNextActive = selectedCuisine !== '' || (isOther && otherValue.trim() !== '');
   // Optionally, navigate after the user picks or enters custom cuisine
@@ -34,6 +40,8 @@ function CuisineSelectionPage() {
 
   return (
     <div className="cuisine-container">
+
+      <InventoryButton onClick={handleInventoryClick} />
       <h1 className="title">What type of cuisine do you want to cook today?</h1>
 
 
