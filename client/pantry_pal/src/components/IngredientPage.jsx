@@ -62,9 +62,7 @@ const IngredientPage = () => {
     const handleDeleteIngredient = () => {
       if (!ingredientName.trim()) return; // ignore empty input
 
-      // Here, we assume your DELETE route supports something like:
-      // DELETE /api/ingredients?name=ingredientName
-      // Adjust to match your actual back-end logic.
+
       fetch(`http://localhost:3000/api/ingredients?name=${encodeURIComponent(ingredientName)}`, {
         method: 'DELETE',
       })
