@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './ResultPage.css';
 
 function parseRecipe(rawString) {
@@ -41,6 +41,7 @@ function parseRecipe(rawString) {
     .substring(ingredientsIndex + ingredientsKey.length, instructionsIndex)
     .trim()
     .replace(/,$/, '');
+
   
   let ingredients = [];
   if (ingredientsStr.includes(',')) {
@@ -61,16 +62,21 @@ function parseRecipe(rawString) {
     .map(instr => instr.replace(/^\d+\.\s*/, '')); // Remove leading numbers like "1. "
 
   return { title, recipeInfo, ingredients, instructions };
-}
+  }
 
 const ResultPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   // Expect the raw recipe string from state; if recipeData is an object, use its "data" property.
   const recipeData = location.state?.recipe;
   const rawString = typeof recipeData === 'object' ? recipeData.data : recipeData;
 
   const [parsedRecipe, setParsedRecipe] = useState(null);
-
+  // navigates to cuisine
+  const handleReturn = () => {
+    navigate('/');
+  };
   useEffect(() => {
     if (rawString) {
       const result = parseRecipe(rawString);
@@ -116,6 +122,24 @@ const ResultPage = () => {
             )}
           </ol>
         </section>
+      </div>
+      <div className="recipe-buttons">
+        <button
+          onClick={handleReturn}
+          style={{
+            display: 'inline-block',
+            marginTop: '2rem',
+            fontSize: '2rem',
+            padding: '0.7rem 1.2rem',
+            backgroundColor: '#4caf50', // Always green
+            color: '#fff',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          Return
+        </button>
       </div>
     </div>
   );
