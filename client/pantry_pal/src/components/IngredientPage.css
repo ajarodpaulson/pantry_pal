@@ -16,21 +16,36 @@
   .ingredient-list {
     list-style: none;
     padding: 0;
+
   }
   
   .ingredient-item {
     margin: 1rem 0;
     display: flex;
     align-items: center;
+
   }
   
   .ingredient-name {
     font-weight: bold;
     margin-right: 1rem;
+    font-size: 2rem;
   }
-  
+
+  .ingredient-item {
+    display: grid;
+    /* 5 columns: name, quantity, input, add button, remove button */
+    grid-template-columns: 120px 100px 80px 120px 120px;
+    gap: 1rem;              /* space between columns */
+    align-items: center;    /* vertically center content in each cell */
+    margin: 1rem 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+  }
+
   .ingredient-quantity {
     margin-right: 1rem;
+    font-size: 1.5rem
   }
   
   .ingredient-input {
@@ -52,4 +67,23 @@
   .remove-button:hover {
     background-color: #f8d7da;
   }
-  
+
+  .return-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    color: #000;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .ingredient-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center; /* or space-between */
+  }

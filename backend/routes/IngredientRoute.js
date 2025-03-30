@@ -18,47 +18,44 @@ router.get("/", async (req, res) => {
     }
   });
 
-// POST route to add a new ingredient
 router.post("/", async (req, res) => {
-    const { name } = req.body;  // Extract name and quantity from the request body
-  
-    try {
-      // Create a new ingredient object
-      const newIngredient = new Ingredient({
-        name
-      });
-  
-      // Save the new ingredient to the database
-      await newIngredient.save();
-  
-      // Respond with the newly added ingredient
-      res.status(201).json(newIngredient); // 201 is the HTTP status code for created resources
-    } catch (error) {
-      // If there's an error
-      res.status(500).json({ message: "Error adding ingredient", error });
+  const { name, quantity } = req.body;
+  try {
+    // Normalize the ingredient name (e.g., trim spaces and lowercase) for consistency
+    const normalizedName = name.trim().toLowerCase();
+
+    // Check if the ingredient already exists
+    const existingIngredient = await Ingredient.findOne({ name: normalizedName });
+    if (existingIngredient) {
+      return res.status(400).json({ message: "Ingredient already exists" });
     }
-  });
+
+    // Create and save the new ingredient
+    const newIngredient = new Ingredient({
+      name: normalizedName,
+      quantity: quantity || 0,
+    });
+    await newIngredient.save();
+
+    res.status(201).json(newIngredient);
+  } catch (error) {
+    res.status(500).json({ message: "Error adding ingredient", error });
+  }
+});
+
   
-// DELETE route to remove an ingredient by ID
-router.delete("/:id", async (req, res) => {
-    const { id } = req.params; // Extract the ingredient ID from the URL parameter
-  
-    try {
-      // Find the ingredient by its ID and delete it
-      const ingredient = await Ingredient.findByIdAndDelete(id);
-  
-      if (!ingredient) {
-        // If no ingredient is found, send a 404 (Not Found) response
-        return res.status(404).json({ message: "Ingredient not found" });
-      }
-  
-      // Respond with a success message
-      res.status(200).json({ message: "Ingredient deleted successfully" });
-    } catch (error) {
-      // If there's an error (e.g., invalid ID format), send a 500 error
-      res.status(500).json({ message: "Error deleting ingredient", error });
+router.delete("/", async (req, res) => {
+  const { name } = req.query; // Extract the ingredient name from the query parameter
+  try {
+    const deletedIngredient = await Ingredient.findOneAndDelete({ name });
+    if (!deletedIngredient) {
+      return res.status(404).json({ message: "Ingredient not found" });
     }
-  });
+    res.status(200).json({ message: "Ingredient deleted successfully", deletedIngredient });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting ingredient", error });
+  }
+});
 
   export default router;
   
