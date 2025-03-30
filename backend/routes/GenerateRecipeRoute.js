@@ -10,12 +10,16 @@ const groqClient = new groq.Groq({
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { ingredients, time, cuisine } = req.body;
+  let { ingredients, time, cuisine } = req.body;
 
   let prompt;
 
   if (ingredients.includes('SurpriseMe')) {
-    prompt = `Surprise me with any one healthy recipe. You must still use the same ${cuisine} and ${time} in minutes provided.`;  
+    const allIngredients = await Ingredient.find();
+    const ingredientNames = allIngredients.map(ing => ing.name);
+    const randomSelection = ingredientNames.sort(() => 0.5 - Math.random()).slice(0, 5); 
+    console.log(allIngredients);
+    prompt = `Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisine} and ${time} in minutes provided.`;  
   } else {
     prompt = `Give back a healthy ${cuisine} recipe you can make in ${time} minutes using: 
     ${ingredients.join(', ')}.\n\n`;    
@@ -30,7 +34,7 @@ router.post('/', async (req, res) => {
     // Send the prompt to Groq and get a response
     const botResponse = await groqClient.chat.completions.create({
         messages: [
-            { role: 'system', content: 'Your name is ReciPy. You are a friendly recipe generator.'},
+            { role: 'system', content: 'Your name is ReciPy. Introduce yourself. You are a friendly recipe generator.'},
             { role: 'user', content: prompt }
         ],
         model: "llama-3.3-70b-versatile"
