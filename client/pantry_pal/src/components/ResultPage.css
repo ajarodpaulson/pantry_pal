@@ -97,7 +97,7 @@
   .recipe-instructions li {
     font-size: 1.2rem;
     color: #444;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; 
   }
   
   /* Utility classes for additional control if needed */
