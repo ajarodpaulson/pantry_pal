@@ -85,14 +85,42 @@ function TimeSelectionPage() {
 
   // Generate recipe button click
   const handleGenerateRecipe = () => {
+      const finalIngredients = selectedIngredients.includes('Surprise me')
+        ? ['SurpriseMe']
+        : selectedIngredients;
+
+    console.log('Ingredients selected:', finalIngredients);
     console.log('Time selected (minutes):', selectedTime);
-    console.log('Ingredients selected:', selectedIngredients);
+    console.log(cuisine);
 
-    // TODO: Possibly call your backend with fetch/axios
-    // fetch('/api/generate-recipe', { ... })
+    // call the generate recipe route
+    const recipeRequest = {
+        ingredients: finalIngredients,
+        time: selectedTime,
+        cuisineType: cuisine
+    };
 
-    // Or navigate to a results page:
-    // navigate('/results', { state: { time: selectedTime, ingredients: selectedIngredients } });
+    fetch('http://localhost:3000/api/generaterecipe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(recipeRequest),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to generate recipe');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Generated recipe:', data);
+          // Optionally, navigate to a results page with the recipe data:
+          // navigate('/results', { state: { recipe: data, time: selectedTime, ingredients: selectedIngredients } });
+        })
+        .catch((error) => {
+          console.error('Error generating recipe:', error);
+        });
   };
 
   // Determine if the Generate Recipe button should be active
