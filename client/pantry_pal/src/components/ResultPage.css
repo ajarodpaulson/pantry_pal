@@ -1,63 +1,75 @@
 /* Overall container for the recipe display */
 .recipe-display {
     max-width: 100%;           /* Maximum width for content */
-    margin: 0 auto;             /* Center horizontally */
+    margin: 0 auto;            /* Center horizontally */
     padding: 5rem;             /* Space inside the container */
-    background-color: #fff;     /* Background color */
+    background-color: #fff;    /* Background color */
     background-image: url('../assets/countertop.png'); /* URL to your background image */
-    background-size: cover; /* Scales the image to cover the container */
+    background-size: cover;    /* Scales the image to cover the container */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling of the image */
     font-family: Arial, sans-serif; /* Base font */
-    color: #333;                /* Default text color */
-    text-align: center;         /* Center text by default */
+    color: #333;               /* Default text color */
+    text-align: center;        /* Center text by default */
   }
+  
+  .text-container {
+    max-width: 700px;
+    margin-left: 5rem; /* Adjust this value to add left margin */
+    margin-right: 1rem; /* Optional right margin */
+    text-align: left;
+    padding-right: 1rem;
+  }
+  
   
   /* Header Section */
   .recipe-header {
-    margin-bottom: 1.5rem;      /* Space below header */
+    margin-bottom: 1.5rem;     /* Space below header */
   }
   
   .recipe-title {
-    font-size: 2.5rem;          /* Large title */
-    color: #222;                /* Dark title color */
-    font-weight: bold;          /* Bold title */
-    margin: 0.5rem 0;           /* Vertical margin for spacing */
+    font-size: 2.5rem;         /* Large title */
+    color: #222;               /* Dark title color */
+    font-weight: bold;         /* Bold title */
+    margin: 0.5rem 0;          /* Vertical margin for spacing */
   }
   
   .recipe-subtitle {
-    font-size: 1.5rem;          /* Subtitle font size */
-    color: #555;                /* Subtitle color */
+    font-size: 1.5rem;         /* Subtitle font size */
+    color: #555;               /* Subtitle color */
     margin: 0.5rem 0;
   }
   
   /* Recipe Information Section */
   .recipe-info {
-    margin-top: 2rem;           /* Space above the section */
-    text-align: left;           /* Left-align the list items for readability */
+    margin-top: 2rem;          /* Space above the section */
   }
   
   .recipe-info h2 {
     font-size: 2.5rem;
     color: #222;
-    margin: 1.5rem 0 1rem;       /* Top and bottom margin */
+    margin: 1.5rem 0 1rem;      /* Top and bottom margin */
   }
   
   .recipe-info ul {
-    list-style: none;           /* Remove bullet points */
+    list-style: none;          /* Remove bullet points */
     padding-left: 0;
   }
   
   .recipe-info li {
     font-size: 1.5rem;
     color: #444;
-    margin-bottom: 0.5rem;      /* Space between items */
+    margin-bottom: 0.5rem;     /* Space between items */
+  }
+
+  .recipe-info p {
+    font-size: 1.3rem;  /* Increase the font size */
+    line-height: 1.5;   /* Adjust the line spacing */
   }
   
   /* Ingredients Section */
   .recipe-ingredients {
     margin-top: 2rem;
-    text-align: left;           /* Left-align ingredients for clarity */
   }
   
   .recipe-ingredients h2 {
@@ -72,7 +84,7 @@
   }
   
   .recipe-ingredients li {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #444;
     margin-bottom: 0.5rem;
   }
@@ -80,7 +92,6 @@
   /* Instructions Section */
   .recipe-instructions {
     margin-top: 2rem;
-    text-align: left;           /* Left-align instructions for readability */
   }
   
   .recipe-instructions h2 {
@@ -90,14 +101,14 @@
   }
   
   .recipe-instructions ol {
-    padding-left: 1.5rem;       /* Indent ordered list items */
+    padding-left: 1.5rem;      /* Indent ordered list items */
     margin: 0;
   }
   
   .recipe-instructions li {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #444;
-    margin-bottom: 0.5rem; 
+    margin-bottom: 0.5rem;
   }
   
   /* Utility classes for additional control if needed */
@@ -116,8 +127,6 @@
   .small-text {
     font-size: 0.9rem;
   }
-
-
   
-  /* You can add more classes to adjust spacing, colors, etc., as needed */
+  /* Additional styles can be added as needed */
   

@@ -21,10 +21,22 @@ router.post('/', async (req, res) => {
     console.log(allIngredients);
     prompt = `Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisineType} and ${time} in minutes provided.`;
   } else {
-    prompt = `Follow the prompts carefully. Your output should be a parsable JSON like string. It should be formatted
-    with Title, Recipe Information, Ingredients, and Instructions. Do not add any formating elements like line break. I should be able to 
-    parse Header: body, next header: next body, and so forth. You need to follow the regional cuisine strictly. The recipes you recommend should only be from
-    this culinary region. Here is what you need to do with the rules I outlined: healthy ${cuisineType} recipe you can make in ${time} minutes using:
+    prompt = `You are an expert recipe generator. When asked for a recipe, please output your response strictly in the following format (with no additional text):
+
+Title: [Recipe Title]
+
+Recipe Information: [A concise paragraph containing key details about the recipe such as a brief description, prep time, cook time, total time, servings, and difficulty if applicable.]
+
+Ingredients: [A list of ingredients formatted so that it can be easily parsed as a list. You must separate each ingredient with a comma. For example:
+1 cup flour, 2 eggs, 1/2 cup milk
+
+Instructions: [A numbered list of steps required to prepare the recipe. Each instruction should start with a number followed by a period and a space. For example:
+1. Preheat the oven to 350°F.
+2. Mix all ingredients together.
+3. Bake for 25 minutes.]
+
+Ensure that you output only the recipe text in this exact format with the headers exactly as shown ("Title:", "Recipe Information:", "Ingredients:", "Instructions:") and no extra commentary.
+Here is what you need to do with the rules I outlined: healthy ${cuisineType} recipe you can make in ${time} minutes using:
     ${ingredients.join(', ')}.\n\n`;    
   }
 

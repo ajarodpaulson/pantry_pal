@@ -26,7 +26,7 @@ function parseRecipe(rawString) {
     return null;
   }
 
-  // Extract text for each section using substring and trim any trailing commas.
+  // Extract each section by slicing between header indices.
   const title = rawString
     .substring(titleIndex + titleKey.length, recipeInfoIndex)
     .trim()
@@ -41,30 +41,24 @@ function parseRecipe(rawString) {
     .substring(ingredientsIndex + ingredientsKey.length, instructionsIndex)
     .trim()
     .replace(/,$/, '');
-
-  const instructionsStr = rawString
-    .substring(instructionsIndex + instructionsKey.length)
-    .trim()
-    .replace(/,$/, '');
-
-  // Try to split ingredients into an array.
-  // If the ingredients string contains commas, assume they are delimiters.
-  let ingredients;
+  
+  let ingredients = [];
   if (ingredientsStr.includes(',')) {
     ingredients = ingredientsStr.split(',').map(ing => ing.trim()).filter(Boolean);
   } else {
-    // Otherwise, if ingredients are space-separated, split on two or more spaces.
-    ingredients = ingredientsStr.split(/\s{2,}/).map(ing => ing.trim()).filter(Boolean);
-    if (ingredients.length === 0) ingredients = [ingredientsStr];
+    ingredients = [ingredientsStr];
   }
 
-  // Similarly, for instructions, try to split on periods.
-  let instructions;
-  if (instructionsStr.includes('.')) {
-    instructions = instructionsStr.split('.').map(instr => instr.trim()).filter(Boolean);
-  } else {
-    instructions = [instructionsStr];
-  }
+  const instructionsStr = rawString
+    .substring(instructionsIndex + instructionsKey.length)
+    .trim();
+
+  // Split instructions on newlines and remove any leading step number and punctuation (e.g., "1. ")
+  let instructions = instructionsStr
+    .split('\n')
+    .map(instr => instr.trim())
+    .filter(instr => instr !== '')
+    .map(instr => instr.replace(/^\d+\.\s*/, '')); // Remove leading numbers like "1. "
 
   return { title, recipeInfo, ingredients, instructions };
 }
@@ -91,37 +85,38 @@ const ResultPage = () => {
   return (
     <div className="recipe-display">
       <h1>{parsedRecipe.title}</h1>
-      
-      <section className="recipe-info">
-        <h2>Recipe Information</h2>
-        <p>{parsedRecipe.recipeInfo}</p>
-      </section>
+      <div className="text-container">
+        <section className="recipe-info">
+          <h2>Recipe Information</h2>
+          <p>{parsedRecipe.recipeInfo}</p>
+        </section>
 
-      <section className="recipe-ingredients">
-        <h2>Ingredients</h2>
-        <ul>
-          {parsedRecipe.ingredients.length > 0 ? (
-            parsedRecipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))
-          ) : (
-            <li>No ingredients provided.</li>
-          )}
-        </ul>
-      </section>
+        <section className="recipe-ingredients">
+          <h2>Ingredients</h2>
+          <ul>
+            {parsedRecipe.ingredients.length > 0 ? (
+              parsedRecipe.ingredients.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))
+            ) : (
+              <li>No ingredients provided.</li>
+            )}
+          </ul>
+        </section>
 
-      <section className="recipe-instructions">
-        <h2>Instructions</h2>
-        <ol>
-          {parsedRecipe.instructions.length > 0 ? (
-            parsedRecipe.instructions.map((instruction, index) => (
-              <li key={index}>{instruction}</li>
-            ))
-          ) : (
-            <li>No instructions provided.</li>
-          )}
-        </ol>
-      </section>
+        <section className="recipe-instructions">
+          <h2>Instructions</h2>
+          <ol>
+            {parsedRecipe.instructions.length > 0 ? (
+              parsedRecipe.instructions.map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))
+            ) : (
+              <li>No instructions provided.</li>
+            )}
+          </ol>
+        </section>
+      </div>
     </div>
   );
 };
