@@ -24,6 +24,10 @@ mongoose.connect(MONGODB_URI, {
 import IngredientRoute from './routes/IngredientRoute.js';  // Change require to import
 app.use('/api/ingredients', IngredientRoute);
 
+// Import GenerateRecipe Route
+import GenerateRecipeRoute from './routes/GenerateRecipeRoute.js';  // Change require to import
+app.use('/api/generaterecipe', GenerateRecipeRoute);
+
 // Root route
 app.get('/', (req, res) => {
   res.send('Hello from Atlas setup!');
