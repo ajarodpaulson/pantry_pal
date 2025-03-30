@@ -131,7 +131,7 @@ const ResultPage = () => {
             marginTop: '2rem',
             fontSize: '2rem',
             padding: '0.7rem 1.2rem',
-            backgroundColor: '#4caf50', // Always green
+            backgroundColor: '#FCA04E', // Always green
             color: '#fff',
             border: 'none',
             borderRadius: '4px',
