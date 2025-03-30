@@ -134,7 +134,7 @@ function TimeSelectionPage() {
     <div className="time-ingredients-container" style={{ textAlign: 'center', padding: '2rem' }}>
       <InventoryButton onClick={handleInventoryClick} />
 
-      <h1 style={{ marginBottom: '4rem' }}>
+      <h1 style={{ marginBottom: '2rem' }}>
         How much time do you have to cook today?
       </h1>
 
@@ -145,7 +145,7 @@ function TimeSelectionPage() {
         style={{
           fontSize: '2rem',
           padding: '0.5rem',
-          marginBottom: '2rem',
+          marginBottom: '0rem',
           fontFamily: 'Dongle, sans-serif'
         }}
       >
