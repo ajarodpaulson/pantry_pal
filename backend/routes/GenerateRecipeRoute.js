@@ -1,5 +1,6 @@
 import express from 'express';
 import groq from 'groq-sdk';
+import Ingredient from '../models/Ingredient.js'; // Import the ingredient model
 
 const groqClient = new groq.Groq({
     apiKey: "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", 
@@ -11,7 +12,14 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { ingredients, time, cuisine } = req.body;
 
-  const prompt = `Here is a ${cuisine} recipe you can make in ${time} minutes using: ${ingredients.join(', ')}.\n\nEnjoy your meal!`;
+  let prompt;
+
+  if (ingredients.includes('SurpriseMe')) {
+    prompt = `Surprise me with any one healthy recipe. You must still use the same ${cuisine} and ${time} in minutes provided.`;  
+  } else {
+    prompt = `Give back a healthy ${cuisine} recipe you can make in ${time} minutes using: 
+    ${ingredients.join(', ')}.\n\n`;    
+  }
 
   // Eventually you'll use these in a prompt
   console.log('Ingredients:', ingredients); // array of strings
@@ -22,7 +30,7 @@ router.post('/', async (req, res) => {
     // Send the prompt to Groq and get a response
     const botResponse = await groqClient.chat.completions.create({
         messages: [
-            { role: 'system', content: 'You are a friendly recipe generator.'},
+            { role: 'system', content: 'Your name is ReciPy. You are a friendly recipe generator.'},
             { role: 'user', content: prompt }
         ],
         model: "llama-3.3-70b-versatile"
