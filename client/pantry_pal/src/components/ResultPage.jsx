@@ -1,10 +1,47 @@
-import React from 'react';
-import './ResultPage.css'; // Import your CSS file for styling
+import React, { useState, useEffect } from 'react';
+import './ResultPage.css';
 
-// Create a default recipe with placeholder values
+// A helper function to parse a raw recipe string into an object.
+function parseRecipe(rawString) {
+  const recipe = {};
+  // Split the raw string by line breaks; remove empty lines
+  const lines = rawString.split('\n').map(line => line.trim()).filter(line => line !== '');
+  
+  lines.forEach(line => {
+    // Find the first colon (":") that separates the key and value
+    const colonIndex = line.indexOf(':');
+    if (colonIndex === -1) return; // Skip lines without a colon
+
+    // Extract the key and value
+    const key = line.substring(0, colonIndex).trim().toLowerCase(); // lower-case keys
+    const value = line.substring(colonIndex + 1).trim();
+    
+    // For keys that represent lists, split the value by the pipe ("|") character
+    if (key === 'ingredients' || key === 'instructions') {
+      recipe[key] = value.split('|').map(item => item.trim());
+    } else {
+      recipe[key] = value;
+    }
+  });
+  
+  return recipe;
+}
+
+// Sample raw recipe string without Notes (and no subtitle header if not needed)
+const sampleRawRecipe = `
+Title: Sample Recipe Title
+PrepTime: 30 minutes
+CookTime: 45 minutes
+Servings: 4
+Difficulty: Medium
+Ingredients: 1 cup ingredient A | 2 cups ingredient B | 1 tbsp ingredient C
+Instructions: Step 1: Preheat the oven. | Step 2: Mix the ingredients. | Step 3: Bake for 30 minutes.
+`;
+
+// Default recipe object without notes
 const defaultRecipe = {
   title: "Sample Recipe Title",
-  subtitle: "Delicious Recipe Subtitle",
+  subtitle: "",  // leave subtitle empty if not used
   prepTime: "30 minutes",
   cookTime: "45 minutes",
   servings: "4",
@@ -17,24 +54,30 @@ const defaultRecipe = {
   instructions: [
     "Step 1: Preheat the oven.",
     "Step 2: Mix the ingredients.",
-    "Step 3: Bake for 30 minutes.",
-    "Step 1: Preheat the oven.",
-    "Step 2: Mix the ingredients.",
-    "Step 3: Bake for 30 minutes.",
-    "Step 1: Preheat the oven.",
-    "Step 2: Mix the ingredients.",
-    "Step 3: Bake for 30 minutes.",
-    "Step 1: Preheat the oven.",
-    "Step 2: Mix the ingredients.",
     "Step 3: Bake for 30 minutes."
-  ],
-  notes: "These are sample notes for the recipe. Replace this with your own notes."
+  ]
 };
 
 const ResultPage = ({ recipe }) => {
-  // Use the provided recipe or fallback to the defaultRecipe if undefined
-  const currentRecipe = recipe || defaultRecipe;
-
+  // currentRecipe holds the recipe to display; start with the prop or fallback to defaultRecipe
+  const [currentRecipe, setCurrentRecipe] = useState(recipe || defaultRecipe);
+  
+  // Simulate fetching a raw recipe string and parsing it.
+  useEffect(() => {
+    const parsedData = parseRecipe(sampleRawRecipe);
+    const formattedRecipe = {
+      title: parsedData['title'] || defaultRecipe.title,
+      subtitle: parsedData['subtitle'] || defaultRecipe.subtitle,
+      prepTime: parsedData['preptime'] || defaultRecipe.prepTime,
+      cookTime: parsedData['cooktime'] || defaultRecipe.cookTime,
+      servings: parsedData['servings'] || defaultRecipe.servings,
+      difficulty: parsedData['difficulty'] || defaultRecipe.difficulty,
+      ingredients: parsedData['ingredients'] || defaultRecipe.ingredients,
+      instructions: parsedData['instructions'] || defaultRecipe.instructions,
+    };
+    setCurrentRecipe(formattedRecipe);
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+  
   return (
     <div className="recipe-display">
       {/* Header Section */}
@@ -83,14 +126,6 @@ const ResultPage = ({ recipe }) => {
           )}
         </ol>
       </section>
-
-      {/* Notes Section */}
-      {currentRecipe.notes && (
-        <section className="recipe-notes">
-          <h2>Notes</h2>
-          <p>{currentRecipe.notes}</p>
-        </section>
-      )}
     </div>
   );
 };
