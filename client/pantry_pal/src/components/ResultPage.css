@@ -16,7 +16,7 @@
   }
   
   .text-container {
-    max-width: 530px;
+    max-width: 500px;
     margin-left: 3rem; /* Adjust this value to add left margin */
     margin-right: 1rem; /* Optional right margin */
     text-align: left;
@@ -29,12 +29,16 @@
     margin-bottom: 1.5rem;     /* Space below header */
   }
   
-  .recipe-title {
-    font-size: 2.5rem;         /* Large title */
-    color: #222;               /* Dark title color */
-    font-weight: bold;         /* Bold title */
-    margin: 0.5rem 0;          /* Vertical margin for spacing */
-  }
+.recipe-title {
+  font-size: 5rem;
+  color: #222;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  display: inline-block; /* Ensures background fits the text */
+  padding: 0.5rem 1rem; /* Adds spacing around the text */
+  text-shadow: 10px 10px 20px rgba(228, 214, 214, 0);
+}
+
   
   .recipe-subtitle {
     font-size: 1.5rem;          /* Subtitle font size */

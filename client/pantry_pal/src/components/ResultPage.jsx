@@ -90,7 +90,8 @@ const ResultPage = () => {
 
   return (
     <div className="recipe-display">
-      <h1>{parsedRecipe.title}</h1>
+      <h1 className="recipe-title">{parsedRecipe.title}</h1>
+
       <div className="text-container">
         <section className="recipe-info">
           <h2>Recipe Information</h2>
