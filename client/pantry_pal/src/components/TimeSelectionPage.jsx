@@ -116,7 +116,7 @@ function TimeSelectionPage() {
         .then((data) => {
           console.log('Generated recipe:', data);
           // Optionally, navigate to a results page with the recipe data:
-          navigate('/results', { state: { recipe: data, time: selectedTime, ingredients: selectedIngredients } });
+          navigate('/results', { state: { recipe:data } });
         })
         .catch((error) => {
           console.error('Error generating recipe:', error);
