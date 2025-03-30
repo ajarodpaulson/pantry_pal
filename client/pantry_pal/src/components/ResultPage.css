@@ -100,24 +100,6 @@
     margin-bottom: 0.5rem;
   }
   
-  /* Notes Section */
-  .recipe-notes {
-    margin-top: 2rem;
-    text-align: left;           /* Align notes to the left */
-  }
-  
-  .recipe-notes h2 {
-    font-size: 1.8rem;
-    color: #222;
-    margin-bottom: 1rem;
-  }
-  
-  .recipe-notes p {
-    font-size: 1rem;
-    color: #555;
-    margin: 0.5rem 0;
-  }
-  
   /* Utility classes for additional control if needed */
   .centered {
     text-align: center;
