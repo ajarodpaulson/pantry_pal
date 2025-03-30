@@ -1,29 +1,14 @@
-# Pantry Pal's Brief Introduction
-
-This tool helps the user to receive AI recommendations for recipes based on available time to cook and ingredients.
-
 ## Inspiration
-Cooking, as enjoyable as it is, is something that can be a cumbersome and time-consuming task. And often, we don't want to go out of our way to buy extra ingredients to prepare a meal. Thus, we were inspired to create a web-based application to make cooking much more seamless and stress-free (and, of course, contribute to less food waste).
+Modern lifestyles are increasingly restricting the amount of time people have for home food preparation and cooking, and this has had serious public health consequences. People are increasingly resorting to eating easy to prepare and highly-processed foods that contribute to malnutrition. We wanted to create an application that would make it easier for people to cook using ingredients that they already have on hand, so they aren't constantly make one-off ingredient purchases simply to follow a recipe. In addition to saving people time and money, this may also significantly reduce food wastage, a serious issue that contributes to landfill waste and greenhouse gas production.
 
-Here, we introduce Pantry Pal. We hope that Pantry Pal can be used to help encourage users to cook healthy recipes with ingredients that they already have on hand, thus helping users save time, money and develop better eating habits.
+Here, we introduce Pantry Pal. We hope that Pantry Pal can be used to help encourage users to cook healthy recipes with ingredients that they already have on hand, thus helping users save time, money and contribute towards improving their nutrition status and health.
 
 ## What it does
-To start, Pantry Pal asks what type of cuisine they would like to cook today (There are 9 possible cuisine options, with the last being one of their choosing).
+On the home page, Pantry Pal allows users to access their kitchen inventory in order to add, delete, and modify items. The home page also allows a user to select what type of what type of cuisine they would like to cook from among 8 different cuisine options, including Italian and Japanese, or a user can enter whatever type of cuisine or food they would like to cook (e.g., bread, cookies).
 
-Once selected, the user can then select the amount of time that they have required to cook, ranging from 30 minutes to 3+ hours. There are designated ingredients listed right underneath that the user can check off, indicating that those selected are the ones to be used in the recipe (I.e., if "beef" and "noodles" were selected, then the recipe response must include those). The "Surprise me" functionality will note all of the users' current ingredient list found in their inventory, and conjure up a new recipe for them to try. 
+Once selected, the user can then select the amount of time that they have required to cook, ranging from 30 minutes to 3+ hours. When a user select specific ingredients from their inventory to use, the recipe generated will include and highlight these ingredients, in addition to using other ingredients from the user's inventory (e.g., if "beef" and "noodles" were selected, then the recipe response must include those). The "Surprise me" functionality will produce a random recipe based on the user's entire ingredient inventory. Overall, the generated recipe will respect the user's preferences with respect to cuisine/food type, amount of time available to cook, and specified ingredients.
 
-Additionally, the "Inventory" button also allows the user to update their current ingredients found within their pantry. The user simply needs to type in the name through a text field, and the update is easily done through the "Add Ingredient" and "Remove Ingredient" buttons. We have also added a functionality where the user can add the amount and the units for each ingredient. 
-
-Finally, once all ingredients are selected, a recipe will be generated for the user, tailored specifically to their preferences listed above (Cuisine type, amount of time to be allocated for cooking task, and ingredients).
-
-For Step-by-Step procedures:
-
-- Choose a regional cusine category.
-- Manage your ingredients inventory.
-- Choose your preferred cooking time.
-- Select ingredients you want to use.
-- Recieve an AI-recommended recipe with instructions using ingredients you have.
-- Choose "Surprise me" and have AI recommend you a random recipe with ingredients you have!
+By accessing their inventory using the "Inventory" button on the home page, the user may update the ingredients they have in their kitchen. The user simply needs to type in the name through a text field, and the update is easily done through the "Add Ingredient" and "Remove Ingredient" buttons. We have also added a functionality where the user can add the amount and the units for each ingredient. 
 
 ## How we built it
 Pantry Pal was built using the React + Vite framework, due to its ease of usage and handling of styling and design. We also appreciated React's capabilities of handling development changes through live updates with the local server. We utilized HTML and CSS to adjust the aesthetics of our project components to our liking.
