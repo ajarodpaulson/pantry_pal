@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CuisineSelectionPage.css';
 import InventoryButton from './InventoryButton';
+import gifImage from '../assets/fried-rice-cooking.gif';
 
 function CuisineSelectionPage() {
   const navigate = useNavigate();
@@ -42,9 +43,9 @@ function CuisineSelectionPage() {
     <div className="cuisine-container">
 
       <InventoryButton onClick={handleInventoryClick} />
-      <h1 className="title">What type of cuisine do you want to cook today?</h1>
-
-
+      <h1 className="title">Welcome to Pantry Pal! What type of cuisine do you want to cook today?</h1>
+      <img src={gifImage} alt="Cooking GIF" className="cuisine-gif" />
+            
       <div className="cuisine-grid">
         <button
           className={`cuisine-btn ${selectedCuisine === 'Japanese' ? 'active' : ''}`}

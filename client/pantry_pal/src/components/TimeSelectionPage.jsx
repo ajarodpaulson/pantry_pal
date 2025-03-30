@@ -138,7 +138,10 @@ function TimeSelectionPage() {
       <select
         value={selectedTime}
         onChange={handleTimeChange}
-        style={{ fontSize: '1rem', padding: '0.5rem', marginBottom: '2rem' }}
+        style={{ fontSize: '2rem', 
+            padding: '0.5rem', 
+            marginBottom: '2rem',
+            fontFamily: 'Dongle, sans-serif'}}
       >
         {timeOptions.map((opt) => (
           <option key={opt.value} value={opt.value}>
@@ -166,14 +169,15 @@ function TimeSelectionPage() {
 
 
      <button
+        className="generate-button"
         onClick={handleGenerateRecipe}
         disabled={!isButtonActive}
         style={{
           display: 'inline-block',
           marginTop: '2rem',
-          fontSize: '1rem',
+          fontSize: '2rem',
           padding: '0.7rem 1.2rem',
-          backgroundColor: isButtonActive ? '#4caf50' : '#555',
+          backgroundColor: isButtonActive ? '#FCA04E' : '#555',
           color: '#fff',
           border: 'none',
           borderRadius: '4px',

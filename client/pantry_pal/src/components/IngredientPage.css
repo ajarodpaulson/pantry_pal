@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+
 .ingredient-page {
     display: flex;
     flex-direction: column;   /* Stack children vertically */
@@ -10,26 +12,28 @@
     background-repeat: no-repeat;
     min-height: 100vh;        /* Full viewport height */
     padding: 1rem;
+    font-family: "Dongle", sans-serif;
+    font-size: 1.75rem;  
+    color:#ADCCED;
   }
   
   /* Other existing styles... */
   .ingredient-list {
     list-style: none;
     padding: 0;
-
+    font-family: "Dongle", sans-serif;
   }
   
   .ingredient-item {
     margin: 1rem 0;
     display: flex;
     align-items: center;
-
   }
   
   .ingredient-name {
     font-weight: bold;
     margin-right: 1rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .ingredient-item {
@@ -45,27 +49,40 @@
 
   .ingredient-quantity {
     margin-right: 1rem;
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    font-family: "Dongle", sans-serif;
   }
   
   .ingredient-input {
     margin-right: 0.5rem;
     width: 80px;
+    font-family: "Dongle", sans-serif;
+    font-size: 1.5rem;
   }
   
   .add-button,
   .remove-button {
     margin-right: 1.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 1rem;
     cursor: pointer;
+    font-size: 1.5rem;
+    font-family: "Dongle", sans-serif;
   }
   
   .add-button:hover {
-    background-color: #d1e7dd;
+    background-color: #73d0a6;
   }
   
   .remove-button:hover {
-    background-color: #f8d7da;
+    background-color: #e26c76;
+  }
+
+  .add-button:active {
+    background-color: #3aad79;
+  }
+
+  .remove-button:active {
+    background-color: #d34f5a;
   }
 
   .return-button {
@@ -79,6 +96,16 @@
     border-radius: 4px;
     cursor: pointer;
     z-index: 1000;
+    font-family: "Dongle", sans-serif;
+    font-size: 2rem;
+  }
+
+  .return-button:hover {
+    background-color: #FFCD83;
+  }
+
+  .return-button:active {
+    background-color: #FCA04E;
   }
 
   .ingredient-controls {
@@ -86,4 +113,27 @@
     gap: 1rem;
     margin-bottom: 1rem;
     justify-content: center; /* or space-between */
+    font-family: "Dongle", sans-serif;
+    font-size: 1.5rem;  
+  }
+
+  .ingredient-to-add {
+    font-family: "Dongle", sans-serif;
+    font-size: 1.5rem;  
+  }
+
+  .add-ingredient-button:hover {
+    background-color: #FFCD83;
+  }
+
+  .delete-ingredient-button:hover {
+    background-color: #FFCD83;
+  }
+
+  .add-ingredient-button:active {
+    background-color: #FCA04E;
+  }
+
+  .delete-ingredient-button:active {
+    background-color: #FCA04E;
   }

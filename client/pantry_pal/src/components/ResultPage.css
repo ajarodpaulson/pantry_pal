@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+
 /* Overall container for the recipe display */
 .recipe-display {
     max-width: 100%;           /* Maximum width for content */
     margin: 0 auto;            /* Center horizontally */
     padding: 5rem;             /* Space inside the container */
-    background-color: #fff;    /* Background color */
-    background-image: url('../assets/countertop.png'); /* URL to your background image */
-    background-size: cover;    /* Scales the image to cover the container */
+    background-color: #fff;     /* Background color */
+    background-image: url('../assets/pixelatedRecipeBackground.png'); /* URL to your background image */
+    background-size: cover; /* Scales the image to cover the container */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Prevents tiling of the image */
-    font-family: Arial, sans-serif; /* Base font */
-    color: #333;               /* Default text color */
-    text-align: center;        /* Center text by default */
+    color: #333;                /* Default text color */
+    text-align: center;         /* Center text by default */
+    font-size: 2.75rem;    
+    font-family: "Dongle", sans-serif;
   }
   
   .text-container {
@@ -35,18 +38,21 @@
   }
   
   .recipe-subtitle {
-    font-size: 1.5rem;         /* Subtitle font size */
-    color: #555;               /* Subtitle color */
+    font-size: 1.5rem;          /* Subtitle font size */
+    color: #222;                /* Subtitle color */
     margin: 0.5rem 0;
   }
   
   /* Recipe Information Section */
   .recipe-info {
-    margin-top: 2rem;          /* Space above the section */
+    margin-top: 2rem;           /* Space above the section */
+    text-align: left;           /* Left-align the list items for readability */
+    font-family: "Dongle", sans-serif;
+    font-size: 2rem;
   }
   
   .recipe-info h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #222;
     margin: 1.5rem 0 1rem;      /* Top and bottom margin */
   }
@@ -70,10 +76,12 @@
   /* Ingredients Section */
   .recipe-ingredients {
     margin-top: 2rem;
+    text-align: left;           /* Left-align ingredients for clarity */
+    font-family: "Dongle", sans-serif;
   }
   
   .recipe-ingredients h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #222;
     margin: 1.5rem 0 1rem;
   }
@@ -84,7 +92,7 @@
   }
   
   .recipe-ingredients li {
-    font-size: 1.3rem;
+    font-size: 2rem;
     color: #444;
     margin-bottom: 0.5rem;
   }
@@ -95,18 +103,20 @@
   }
   
   .recipe-instructions h2 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #222;
     margin: 1.5rem 0 1rem;
+    font-family: "Dongle", sans-serif;
   }
   
   .recipe-instructions ol {
     padding-left: 1.5rem;      /* Indent ordered list items */
     margin: 0;
+    font-family: "Dongle", sans-serif;
   }
   
   .recipe-instructions li {
-    font-size: 1.3rem;
+    font-size: 2rem;
     color: #444;
     margin-bottom: 0.5rem;
   }

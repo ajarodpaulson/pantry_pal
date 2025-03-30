@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap');
+
 .time-ingredients-container {
   display: flex;
   width: 100%;
@@ -10,9 +12,9 @@
   background: url('../assets/healthy_kitchen.webp') no-repeat center center/cover;
   background-size: cover;
   /* Make text stand out on the background */
-  color: #fff;
+  color:#ADCCED;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  font-family: serif;
+  font-family: "Dongle", sans-serif;
   padding: 1rem;
   text-align: center; /* to center text if needed */
 }
@@ -20,8 +22,8 @@
 .time-ingredients-container h1,
 .time-ingredients-container h2 {
   margin-bottom: 2rem;
-  font-family: serif;
-  font-size: 3rem;
+  font-family: "Dongle", sans-serif;
+  font-size: 4rem;
 }
 
 .ingredients-grid {
@@ -41,6 +43,7 @@
   align-items: center;
   cursor: pointer;  /* Show a pointer when hovering the label */
   font-size: 3rem;
+  font-family: "Dongle", sans-serif;
 }
 
 /* Make checkboxes bigger with transform scale */
@@ -48,3 +51,4 @@
   transform: scale(3);    /* Increase or decrease for desired size */
   margin-right: 2rem;     /* Space between checkbox and label text */
 }
+

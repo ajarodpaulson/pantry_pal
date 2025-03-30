@@ -145,12 +145,13 @@ const IngredientPage = () => {
       <div className="ingredient-controls">
         <input
           type="text"
+          className="ingredient-to-add"
           placeholder="Enter ingredient name"
           value={ingredientName}
           onChange={(e) => setIngredientName(e.target.value)}
         />
-        <button onClick={handleAddIngredient}>Add Ingredient</button>
-        <button onClick={handleDeleteIngredient}>Delete Ingredient</button>
+        <button className = "add-ingredient-button" onClick={handleAddIngredient}>Add Ingredient</button>
+        <button className = "delete-ingredient-button" onClick={handleDeleteIngredient}>Delete Ingredient</button>
       </div>
 
       <ul className="ingredient-list">
