@@ -35,7 +35,7 @@ function CuisineSelectionPage() {
     // TODO: store in global state, context, or pass as route param
     // e.g. navigate(`/time?cuisine=${encodeURIComponent(finalChoice)}`)
 
-    navigate('/time'); // go to time selection page
+    navigate('/time', { state: { cuisine:finalChoice } }); // go to time selection page
   };
 
   return (

@@ -3,13 +3,7 @@ import './IngredientPage.css'; // Import external CSS
 
 const IngredientPage = () => {
   // Placeholder ingredients
-  const [ingredients, setIngredients] = useState([
-    { _id: '1', name: 'Placeholder Ingredient 1', quantity: 0 },
-    { _id: '2', name: 'Placeholder Ingredient 2', quantity: 0 },
-    { _id: '3', name: 'Placeholder Ingredient 3', quantity: 0 },
-    { _id: '4', name: 'Placeholder Ingredient 4', quantity: 0 },
-    { _id: '5', name: 'Placeholder Ingredient 5', quantity: 0 },
-  ]);
+  const [ingredients, setIngredients] = useState([]);
 
   // Simulated fetch effect (replace with your backend fetch later)
   useEffect(() => {
@@ -23,11 +17,17 @@ const IngredientPage = () => {
   // Update an ingredient's quantity (positive for add, negative for remove)
   const handleUpdateQuantity = (id, changeAmount) => {
     setIngredients((prevIngredients) =>
-      prevIngredients.map((ingredient) =>
-        ingredient._id === id
-          ? { ...ingredient, quantity: ingredient.quantity + changeAmount }
+      prevIngredients.map((ingredient) => {
+          const newQuantity = ingredient.quantity || 0;
+        if (newQuantity + changeAmount < 0) {
+            return ingredient._id === id
+              ? { ...ingredient, quantity: 0}
+              : ingredient
+            }
+        return ingredient._id === id
+          ? { ...ingredient, quantity: newQuantity + changeAmount }
           : ingredient
-      )
+      })
     );
   };
 
@@ -41,6 +41,7 @@ const IngredientPage = () => {
         onUpdateQuantity(ingredient._id, amount);
         setInputValue('');
       }
+
     };
 
     const handleRemove = () => {

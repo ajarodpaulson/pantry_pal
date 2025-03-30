@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
 import './TimeSelectionPage.css';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import InventoryButton from './InventoryButton';
+import React, { useState, useEffect } from 'react';
 
-// import { useNavigate } from 'react-router-dom'; // if you want to navigate to another page
 
 function TimeSelectionPage() {
+  const location = useLocation();
+  const cuisine = location.state?.cuisine || 'No cuisine selected';
+  console.log(cuisine);
 
   const navigate = useNavigate();
 
   const handleInventoryClick = () => {
-      navigate('/inventory'); // adjust the route as needed
+      navigate('/inventory'); // goes to inventory
   };
 
   // State for time selection
@@ -29,14 +31,21 @@ function TimeSelectionPage() {
     { value: 180, label: '3 hours' },
     { value: 9999, label: '3+ hours' }
   ];
+  // State for inventory (first 8 ingredients from backend)
+  const [inventory, setIngredients] = useState([]);
 
-  // Example inventory items - replace with your real data
-  const inventory = [
-    'Eggs', 'Milk', 'Cheese', 'Chicken', 'Broccoli',
-    'Onions', 'Garlic', 'Mushrooms'
-  ];
+  useEffect(() => {
+     fetch('http://localhost:3000/api/ingredients')
+       .then((response) => response.json())
+       .then((data) => {
+         // data is an array of ingredient objects; extract the first 8 names
+         const names = data.slice(0, 8).map(item => item.name);
+         setIngredients(names);
+       })
+       .catch((error) => console.error('Error fetching ingredients:', error));
+   }, []);
 
-  // We add a "Surprise me" as the 9th item
+  // "Surprise me" as the 9th item
   const displayedIngredients = [...inventory, 'Surprise me'];
 
 
