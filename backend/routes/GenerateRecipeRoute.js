@@ -13,11 +13,10 @@ router.post('/', async (req, res) => {
   let { ingredients, time, cuisineType } = req.body;
 
   let prompt;
+  const allIngredients = await Ingredient.find();
 
   if (ingredients.includes('SurpriseMe')) {
-    const allIngredients = await Ingredient.find();
     const ingredientNames = allIngredients.map(ing => ing.name);
-    const randomSelection = ingredientNames.sort(() => 0.5 - Math.random()).slice(0, 5); 
     console.log(allIngredients);
     prompt = `You are an expert recipe generator. When asked for a recipe, please output your response strictly in the following format (with no additional text):
 
@@ -34,7 +33,7 @@ Instructions: [A numbered list of steps required to prepare the recipe. Each ins
 3. Bake for 25 minutes.]
 
 Ensure that you output only the recipe text in this exact format with the headers exactly as shown ("Title:", "Recipe Information:", "Ingredients:", "Instructions:") and no extra commentary.
-Here is what you need to do with the rules I outlined: Surprise me with any one healthy recipe with ${randomSelection.join(', ')}. You must still use the same ${cuisineType} and ${time} in minutes provided.`;
+Here is what you need to do with the rules I outlined: Surprise me with a healthy recipe that only includes ingredients from the following list: ${allIngredients.join(', ')} and no others. You must still use the same ${cuisineType} and ${time} in minutes provided.`;
   } else {
     prompt = `You are an expert recipe generator. When asked for a recipe, please output your response strictly in the following format (with no additional text):
 
@@ -51,8 +50,8 @@ Instructions: [A numbered list of steps required to prepare the recipe. Each ins
 3. Bake for 25 minutes.]
 
 Ensure that you output only the recipe text in this exact format with the headers exactly as shown ("Title:", "Recipe Information:", "Ingredients:", "Instructions:") and no extra commentary.
-Here is what you need to do with the rules I outlined: healthy ${cuisineType} recipe you can make in ${time} minutes using:
-    ${ingredients.join(', ')}.\n\n`;    
+Here is what you need to do with the rules I outlined: Give me a healthy ${cuisineType} recipe you can make in ${time} minutes highlighting these ingredients:
+    ${ingredients.join(', ')}. However, you may use any ingredients from this list: ${allIngredients.join(', ')} but no others\n\n`;    
   }
 
   // Eventually you'll use these in a prompt
